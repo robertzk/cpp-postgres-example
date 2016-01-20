@@ -12,6 +12,8 @@ The typical development cycle is to compile the application and restart it:
 make clean && make && bin/app
 ```
 
+Ensure you have installed and linked [libpqxx](http://pqxx.org/development/libpqxx/) with the header files present in `/usr/local/include`.
+
 ### License
 
 This project is licensed under the MIT License:
