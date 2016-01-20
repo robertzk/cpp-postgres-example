@@ -4,7 +4,8 @@
 # make all   -> clean and compile
 APPNAME  = app
 SRC      = src/main.cpp  \
-           src/utils.cpp 
+           src/utils.cpp \
+					 src/color.cpp
 # Compilation options
 #CXXFLAGS  = -O2 -g -W -Wall -Wno-unused-parameter -fPIC
 CXXFLAGS = -std=c++11 -g 
@@ -24,6 +25,7 @@ $(APPNAME): $(OBJS) $(SRC)
 # Cleaning rule
 clean:
 	rm -f $(OBJS) $(APPNAME) *~
+	rm -f src/*.o
 
 # additional rule
 all: clean main

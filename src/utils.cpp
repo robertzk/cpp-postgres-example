@@ -14,5 +14,13 @@ namespace cpp_postgres_app {
 
     return(out);
   }
+
+  std::string tolower(const std::string &str) {
+    // http://stackoverflow.com/questions/313970/how-to-convert-stdstring-to-lower-case
+    std::string lowerstr = std::string { str };
+    std::transform(lowerstr.begin(), lowerstr.end(),
+                   lowerstr.begin(), ::tolower);
+    return lowerstr;
+  }
 }
 
