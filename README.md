@@ -4,6 +4,14 @@ This shows an example application using the Postgres
 [client interface](http://www.postgresql.org/docs/7.2/static/libpqplusplus.html)
 to write from and read to a database.
 
+## Development cycle
+
+The typical development cycle is to compile the application and restart it:
+
+```bash
+make clean && make && bin/app
+```
+
 ### License
 
 This project is licensed under the MIT License:
