@@ -1,12 +1,30 @@
-app: main.o utils.o
-	clang++ -o bin/app main.o utils.o
+# Thanks to http://stackoverflow.com/a/21355129
+# make       -> compile the application
+# make clean -> remove the application and all object files (.o)
+# make all   -> clean and compile
+APPNAME  = app
+SRC      = src/main.cpp  \
+           src/utils.cpp 
+# Compilation options
+#CXXFLAGS  = -O2 -g -W -Wall -Wno-unused-parameter -fPIC
+CXXFLAGS = -std=c++11 -g 
 
-main.o:
-	clang++ -std=c++11 -Wall -g -c src/main.cpp -o bin/main.o
+# How to compile individual object files
+OBJS    = $(SRC:.cpp=.o)
+.cpp.o:
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-utils.o:
-	clang++ -std=c++11 -Wall -g -c src/utils.cpp
+.PHONY: all clean
 
+# Library compilation
+$(APPNAME): $(OBJS) $(SRC)
+	$(CXX) $(CXXFLAGS) $(OBJS) -o $(APPNAME)
+	mv $(APPNAME) bin/$(APPNAME)
+
+# Cleaning rule
 clean:
-	rm -f bin/app bin/main.o bin/utils.o
+	rm -f $(OBJS) $(APPNAME) *~
+
+# additional rule
+all: clean main
 
