@@ -3,6 +3,7 @@
 #include "utils.h"
 #include "color.h"
 #include <iostream>
+#include <pqxx/pqxx>
 
 namespace cpp_postgres_app {
   /* Start the C++ Postgres app given command-line arguments.
@@ -10,6 +11,8 @@ namespace cpp_postgres_app {
    * @param arguments. A vector of string arguments given in the command line.
    * @return A status code, 0 if no errors occurred during the run. */
   int start(const std::vector<std::string> &arguments);
+
+  void db_app();
 }
 
 #endif

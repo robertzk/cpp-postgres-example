@@ -9,7 +9,13 @@ namespace cpp_postgres_app {
       std::cout << std::endl << "\033[31m" << el << "\033[39m !!";
     }
 
+    db_app();
+
     return 0;
+  }
+
+  void db_app() {
+
   }
 }
 

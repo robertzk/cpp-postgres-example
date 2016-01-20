@@ -9,7 +9,8 @@ SRC      = src/main.cpp  \
 					 src/color.cpp
 # Compilation options
 #CXXFLAGS  = -O2 -g -W -Wall -Wno-unused-parameter -fPIC
-CXXFLAGS = -std=c++11 -g 
+CXXFLAGS = -std=c++11 -g
+LDFLAGS  = -I/usr/local/include/ -lpqxx -lpq
 
 # How to compile individual object files
 OBJS    = $(SRC:.cpp=.o)
@@ -20,7 +21,7 @@ OBJS    = $(SRC:.cpp=.o)
 
 # Library compilation
 $(APPNAME): $(OBJS) $(SRC)
-	$(CXX) $(CXXFLAGS) $(OBJS) -o $(APPNAME)
+	$(CXX) $(CXXFLAGS) $(OBJS) $(LDFLAGS) -o $(APPNAME)
 	mv $(APPNAME) bin/$(APPNAME)
 
 # Cleaning rule
