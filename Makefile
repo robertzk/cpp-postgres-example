@@ -4,6 +4,7 @@
 # make all   -> clean and compile
 APPNAME  = app
 SRC      = src/main.cpp  \
+					 src/app.cpp   \
            src/utils.cpp \
 					 src/color.cpp
 # Compilation options
