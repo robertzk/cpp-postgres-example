@@ -1,11 +1,12 @@
 app: main.o utils.o
-	clang++ -o app.out main.o utils.o
+	clang++ -o bin/app main.o utils.o
 
 main.o:
-	clang++ -std=c++11 -Wall -g -c main.cpp
+	clang++ -std=c++11 -Wall -g -c src/main.cpp -o bin/main.o
 
 utils.o:
-	clang++ -std=c++11 -Wall -g -c utils.cpp
+	clang++ -std=c++11 -Wall -g -c src/utils.cpp
 
 clean:
-	rm -f app.out main.o utils.o
+	rm -f bin/app bin/main.o bin/utils.o
+
