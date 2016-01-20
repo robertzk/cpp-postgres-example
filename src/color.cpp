@@ -28,7 +28,7 @@ namespace cpp_postgres_app {
     }
 
     if (sane_color.compare(std::string { "blue" }) == 0) {
-      return ColorOutput { ColorOutput::yellow };
+      return ColorOutput { ColorOutput::blue };
     }
 
     if (sane_color.compare(std::string { "magenta" }) == 0) {

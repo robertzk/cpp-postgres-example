@@ -15,7 +15,24 @@ namespace cpp_postgres_app {
   }
 
   void db_app() {
+    pqxx::connection con("dbname=testdb user=robertk");
 
+    pqxx::work transaction(con);
+    pqxx::result result = transaction.exec(R"(
+      SELECT a, b FROM test
+    )");
+
+    std::vector<int> as;
+    for (unsigned int i = 0; i < result.size(); i++) {
+      as.push_back(result[i][0].as<int>());
+    }
+
+    std::cout << "The a's in the database are: \n\n";
+    for (const auto &el : as) {
+      std::cout << crayon(std::to_string(el), "blue") << std::endl;
+    }
+
+    transaction.commit();
   }
 }
 
