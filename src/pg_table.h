@@ -25,7 +25,7 @@ namespace cpp_postgres_app {
      *
      * @param _name Name of the database table.
      */
-    PgTable(std::string _name) : name(_name), complete(false) {
+    PgTable(const std::string &_name) : name(_name), complete(false) {
       if (name.length() == 0) {
         throw PgTableInvalidLength();
       }
@@ -38,7 +38,7 @@ namespace cpp_postgres_app {
      *   \code{PgTable::ColumnType::Int} or
      *   \code{PgTable::ColumnType::String}.
      */
-    bool add_column(std::string name, ColumnType type) {
+    bool add_column(const std::string &name, const ColumnType type) {
       if (columns.find(name) != columns.end()) {
         throw PgTableColumnExists();
       }
@@ -61,14 +61,24 @@ namespace cpp_postgres_app {
      *
      * @param row The row to insert as a comma-separated string.
      *   Note that no spaces are currently allowed.
-     * @return 1 if successful, 0 otherwise.
+     * @return The query to insert this record into the table as a string.
      */
-    int insert_by_csv(std::string row) {
+    const std::string insert_by_csv(const std::string &row) {
       if (!complete) {
         throw PgTableIncompleteDefinition();
       }
       
-      //std::vector<char> buffer;
+
+      std::stringstream query;
+      query << "INSERT INTO " << name << '(';
+      bool first = true;
+      for (const auto &column_el : columns) {
+        query << (first ? "" : ",") << column_el.first;
+        first = false;
+      }
+      query << ") VALUES (";
+
+      first = true;
       int count = 0;
       for (unsigned int i = 0; row[i]; ++i) {
         std::stringstream ss;
@@ -80,17 +90,20 @@ namespace cpp_postgres_app {
           case ColumnType::Int: 
             int_least32_t el;
             ss >> el;
-            std::cout << "Int: " << i << " " << el << std::endl;
+            // std::cout << el;
+            query << (count == 0 ? "" : ",") << el;
             break;
           case ColumnType::String:
             std::string el2 = ss.str();
-            std::cout << "String: " << i << " " << el2 << std::endl;
-           break;
+            // std::cout << el2;
+            query << (count == 0 ? "" : ",") << '\'' << el2 << '\'';
+            break;
         }
         count++;
       }
+      query << ");";
 
-      return 1;
+      return query.str();
     }
 
   private:

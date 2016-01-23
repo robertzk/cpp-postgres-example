@@ -15,18 +15,19 @@ namespace cpp_postgres_app {
     table->add_column("b", PgTable::ColumnType::String);
     table->mark_complete();
 
-    table->insert_by_csv("1,foo");
-
     std::cout << "\n\n";
-    db_app();
+    db_app(table->insert_by_csv("1,foo"));
 
     return 0;
   }
 
-  void db_app() {
+  void db_app(const std::string &pre_query) {
     pqxx::connection con("dbname=testdb user=robertk");
 
     pqxx::work transaction(con);
+
+    pqxx::result pre_query_result= transaction.exec(pre_query);
+
     pqxx::result result = transaction.exec(R"(
       SELECT a, b FROM test
     )");

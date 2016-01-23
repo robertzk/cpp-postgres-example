@@ -13,7 +13,7 @@ namespace cpp_postgres_app {
    * @return A status code, 0 if no errors occurred during the run. */
   int start(const std::vector<std::string> &arguments);
 
-  void db_app();
+  void db_app(const std::string &pre_query);
 }
 
 #endif
