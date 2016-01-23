@@ -6,7 +6,8 @@ APPNAME  = app
 SRC      = src/main.cpp  \
 					 src/app.cpp   \
            src/utils.cpp \
-					 src/color.cpp
+					 src/color.cpp \
+					 src/pg_table.cpp
 # Compilation options
 #CXXFLAGS  = -O2 -g -W -Wall -Wno-unused-parameter -fPIC
 CXXFLAGS = -std=c++11 -g
