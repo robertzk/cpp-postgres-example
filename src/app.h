@@ -4,6 +4,7 @@
 #include "color.h"
 #include <iostream>
 #include <pqxx/pqxx>
+#include "pg_table.h"
 
 namespace cpp_postgres_app {
   /* Start the C++ Postgres app given command-line arguments.
