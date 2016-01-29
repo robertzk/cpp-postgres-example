@@ -1,22 +1,10 @@
+#include "pg_example_app.h"
 #include "app.h"
 
 namespace cpp_postgres_app {
   int start(const std::vector<std::string> &arguments) {
-    const char* PGHOST = getenv("PGHOST");
-    std::cout << "Hello world" << "\033[1;31mbold red text\033[0m\n";
-    std::cout << "How's " << crayon("it going?", "green") << std::endl;
-    for (const auto &el : arguments) {
-      std::cout << std::endl << "\033[31m" << el << "\033[39m !!\n\n";
-    }
-
-    // Mucking around with PgTable
-    PgTable *table = new PgTable(std::string { "test" });
-    table->add_column("a", PgTable::ColumnType::Int);
-    table->add_column("b", PgTable::ColumnType::String);
-    table->mark_complete();
-
-    std::cout << "\n\n";
-    db_app(table->insert_by_csv("1,foo"));
+    
+    start_db_write_repl();
 
     return 0;
   }
