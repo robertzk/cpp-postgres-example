@@ -79,19 +79,24 @@ namespace cpp_postgres_app {
      *
      * @param row The row to insert as a comma-separated string.
      *   Note that no spaces are currently allowed.
+     * @param order The order of the keys to insert, by default the
+     *   same as the insert order for the table.
      * @return The query to insert this record into the table as a string.
      */
     const std::string insert_by_csv(const std::string &row) {
+      return insert_by_csv(row, insert_order);
+    }
+    const std::string insert_by_csv(const std::string &row,
+        std::vector<std::string> &order) {
       if (!complete) {
         throw PgTableIncompleteDefinition();
       }
-      
 
       std::stringstream query;
       query << "INSERT INTO " << name << '(';
       bool first = true;
-      for (const auto &column_el : columns) {
-        query << (first ? "" : ",") << column_el.first;
+      for (const auto &column_el : order) {
+        query << (first ? "" : ",") << column_el;
         first = false;
       }
       query << ") VALUES (";
@@ -104,7 +109,7 @@ namespace cpp_postgres_app {
           ss << row[i];
         }
         
-        switch(columns[insert_order[count]]) {
+        switch(columns[order[count]]) {
           case ColumnType::Int: 
             int_least32_t el;
             ss >> el;

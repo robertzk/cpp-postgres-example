@@ -20,12 +20,12 @@ namespace cpp_postgres_app {
     * @return True if end of REPL, false otherwise. */
    bool is_end_of_repl(const char* input);
 
-   /* Insert values into a table using a loop.
+   /* Insert values into a table and display the results.
     *
     * @param table A reference to the table object giving the type information
     *   in the table.
     * @return A status code, 0 if no errors occurred during the run. */
-   int start_table_insert_loop(PgTable &table);
+   int insert_and_display(PgTable &table);
 }
 
 #endif
